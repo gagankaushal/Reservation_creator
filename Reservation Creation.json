@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "e2f32da0-baad-0782-3f1b-0922f686ed59",
+		"name": "AHP Property Creation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Property Creation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f766db6d-9312-4389-8be1-d88ed6ea67b7",
+						"exec": [
+							"",
+							"var responseJson = xml2Json(responseBody);",
+							"//tests[\"Create Reservation\"]=console.log(\"ConfNumber: \"+responseJson['soap:Envelope']['soap:Body']['ns4:createReservationResponse']['ns4:reservation']['ns5:confirmationNumber']);",
+							"//ABOVE IS FOR GROUPS",
+							"//tests[\"Create Reservation\"]=console.log(responseJson);",
+							"",
+							"//tests[\"Create Reservation\"]=console.log(\"ConfNumber: \"+responseJson['soap:Envelope']['soap:Body']['ns3:createReservationResponse']['ns4:reservation']['ns5:confirmationNumber']);",
+							"",
+							"//var ConfirmationNumber = 1;",
+							"//var 'ns6:confirmationNumber = 1;",
+							"",
+							"if (responseJson['soap:Envelope']['soap:Body']['ns4:createReservationResponse']!== undefined)",
+							"    {",
+							"        tests[\"Create Reservation\"]=console.log(\"ConfNumber: \"+responseJson['soap:Envelope']['soap:Body']['ns4:createReservationResponse']['ns4:reservation']['ns5:confirmationNumber']);",
+							"    }",
+							"",
+							"else if(responseJson['soap:Envelope']['soap:Body']['ns5:createReservationResponse']!== undefined)",
+							"    {",
+							"        tests[\"Create Reservation\"]=console.log(\"ConfNumber: \"+responseJson['soap:Envelope']['soap:Body']['ns5:createReservationResponse']['ns5:reservation']['ns6:confirmationNumber']);",
+							"    }",
+							"",
+							"else if(responseJson['soap:Envelope']['soap:Body']['ns3:createReservationResponse']['ns3:reservation']!== undefined)",
+							"    {",
+							"        tests[\"Create Reservation\"]=console.log(\"ConfNumber: \"+responseJson['soap:Envelope']['soap:Body']['ns3:createReservationResponse']['ns3:reservation']['ns6:confirmationNumber']); //Group block reservations",
+							"    }",
+							"",
+							"else {",
+							"",
+							"    tests[\"Create Reservation\"]=console.log(responseJson);",
+							"    }",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "text/xml",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<soap:Envelope\r\n                xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\r\n                <soap:Body>\r\n                                <ns3:createReservationRequest\r\n                                                xmlns=\"http://atp.ihg.com/schema/common/ATPCommonServiceTypes/v1\"\r\n                                                xmlns:ns10=\"http://atp.ihg.com/schema/crs/reservations/reservation/housepolicydatatypes/v2\"\r\n                                                xmlns:ns11=\"http://atp.ihg.com/schema/crs/reservations/reservation/itinerarydatatypes/v2\"\r\n                                                xmlns:ns12=\"http://atp.ihg.com/schema/crs/reservations/reservation/freenightsdatatypes/v2\"\r\n                                                xmlns:ns2=\"http://atp.ihg.com/schema/crs/reservations/reservation/commondatatypes/v2\"\r\n                                                xmlns:ns3=\"http://atp.ihg.com/schema/crs/reservations/reservation/servicetypes/v2\"\r\n                                                xmlns:ns4=\"http://atp.ihg.com/schema/crs/reservations/reservation/datatypes/v2\"\r\n                                                xmlns:ns5=\"http://atp.ihg.com/schema/crs/reservations/reservation/ratedatatypes/v2\"\r\n                                                xmlns:ns6=\"http://atp.ihg.com/schema/crs/reservations/reservation/rateruledatatypes/v2\"\r\n                                                xmlns:ns7=\"http://atp.ihg.com/schema/crs/reservations/reservation/reservationgroupdatatypes/v2\"\r\n                                                xmlns:ns8=\"http://atp.ihg.com/schema/crs/reservations/reservation/guestlistdatatypes/v2\"\r\n                                                xmlns:ns9=\"http://atp.ihg.com/schema/crs/reservations/reservation/findreservationsdatatypes/v2\">\r\n                                                <v1:header\r\n                                                                xmlns:v1=\"http://atp.ihg.com/schema/common/ATPCommonServiceTypes/v1\">\r\n                                                                <v1:language isoCountryCode=\"US\" isoLanguageCode=\"en\" />\r\n                                                                <v1:user id = \"WSIHG00WEB\"/>\r\n                                                                \t\r\n                                                                <v1:channel name=\"WB\">\r\n                                                                                <v1:subChannel name=\"WEBWB\">\r\n                                                                                                <v1:subChannel name=\"WEBWB\">\r\n                                                                                                                <v1:subChannel name=\"WEB\" />\r\n                                                                                                    </v1:subChannel>\r\n                                                                                                   \r\n                                                                                </v1:subChannel>\r\n                                                                </v1:channel>\r\n                                                                <v1:headerVersion major=\"\" minor=\"\" build=\"\" />\r\n                                                                <v1:environment name=\"dc4-staging\" />\r\n                                                                <v1:originatingSession id=\"ReservationService\" />\r\n                                                                <v1:transactionId id=\"a6639f66-29d4-4fde-a4a3-3c5f2c2b10e4\" />\r\n                                                                <v1:transactionSequence number=\"0\" />\r\n                                                                <v1:transactionLogging level=\"\" />\r\n                                                                <v1:sendTimeStamp>2017-03-06T15:31:45.677Z</v1:sendTimeStamp>\r\n                                                </v1:header>\r\n                                                <ns3:agentInfo>\r\n                                                                <ns2:agentDutyCode>PR</ns2:agentDutyCode>\r\n                                                </ns3:agentInfo>\r\n                                                <ns3:reservationStatus>COMMIT</ns3:reservationStatus>\r\n                                                <ns4:emailAddress>\r\n                                                                <ns2:address>emailAddress@email.com</ns2:address>\r\n                                                </ns4:emailAddress>\r\n                                                <ns4:nameOnReservation>\r\n                                                                <ns2:firstName>Bob</ns2:firstName>\r\n                                                                <ns2:lastName>Penguini</ns2:lastName>\r\n                                                </ns4:nameOnReservation>\r\n                                                <ns4:phones/>\r\n                                                \r\n                                                <ns4:pcrNumber>170417850</ns4:pcrNumber>\r\n                                                <ns5:arrivalTime>\r\n                                                    <ns5:estimatedTimeOfArrival>03:00:00.000</ns5:estimatedTimeOfArrival>\r\n                                                </ns5:arrivalTime>\r\n                                                <ns3:guarantee>\r\n                                                                <ns4:creditCard holderName=\"RESERVATION\" code=\"VS\" number=\"7411226414471111\" expirationDate=\"2024-03\" />\r\n                                                                <ns4:guaranteeTypeCode>DX</ns4:guaranteeTypeCode>\r\n                                                </ns3:guarantee>\r\n                                                <ns3:stay>\r\n                                                                <ns4:checkInDate>{{checkin}}</ns4:checkInDate>\r\n                                                                <ns4:checkOutDate>{{checkout}}</ns4:checkOutDate>\r\n                                                                <ns4:numberOfAdults>1</ns4:numberOfAdults>\r\n                                                                <ns4:numberOfChildren>0</ns4:numberOfChildren>\r\n                                                                <ns4:bookingCode>{{room}}{{rate}}</ns4:bookingCode>\r\n                                                                <ns4:numberOfRooms>1</ns4:numberOfRooms>\r\n                                                </ns3:stay>\r\n                                                <ns3:hotelInfo>\r\n                                                                <ns2:hotelCode>{{property}}</ns2:hotelCode>\r\n                                                </ns3:hotelInfo>\r\n                                                <ns5:serviceCodes>\r\n                                                    <ns5:serviceCode>\r\n                                                        <ns5:codeValue>LF</ns5:codeValue>\r\n                                                    </ns5:serviceCode>\r\n                                                </ns5:serviceCodes> \r\n                                </ns3:createReservationRequest>\r\n                </soap:Body>\r\n</soap:Envelope>\r\n"
+				},
+				"url": {
+					"raw": "http://iadd1-int-res-esb.ihgint.global:80/ReservationService?rate={{rate}}&room={{room}}&checkin={{checkin}}&checkout={{checkout}}&property={{property}}",
+					"protocol": "http",
+					"host": [
+						"iadd1-int-res-esb",
+						"ihgint",
+						"global"
+					],
+					"port": "80",
+					"path": [
+						"ReservationService"
+					],
+					"query": [
+						{
+							"key": "rate",
+							"value": "{{rate}}"
+						},
+						{
+							"key": "room",
+							"value": "{{room}}"
+						},
+						{
+							"key": "checkin",
+							"value": "{{checkin}}"
+						},
+						{
+							"key": "checkout",
+							"value": "{{checkout}}"
+						},
+						{
+							"key": "property",
+							"value": "{{property}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
